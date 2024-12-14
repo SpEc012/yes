@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Denied - BUY ACCESS</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e1e2f, #121212);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+            background: rgba(30, 30, 47, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .lock-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .discord-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, #7289da, #5865F2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 1rem;
+        }
+
+        .discord-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .money-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .money {
+            position: absolute;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .contacts {
+            margin-top: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            color: #ff6a00;
+            font-weight: bold;
+        }
+
+        .ip-section {
+            background: rgba(255, 106, 0, 0.1);
+            border: 1px solid rgba(255, 106, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .ip-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 1.2em;
+            color: #ff6a00;
+        }
+
+        .instructions {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="money-rain" id="moneyRain"></div>
+    <div class="container">
+        <div class="lock-icon">🔒</div>
+        <h1>Access Denied</h1>
+        <div class="message">
+            <p>Looks like you don't have access to <span class="highlight">The Pulling Method & Suppliers</span> yet!</p>
+            <p>Join our Discord server and create a ticket to get instant access.</p>
+            <p>Our team is ready to help you start making money! 💰</p>
+        </div>
+        <div class="ip-section">
+            <h2>📝 Your IP Address</h2>
+            <div class="ip-box" id="userIP">Loading...</div>
+            <p class="instructions">
+                Please provide this IP address when purchasing access.<br>
+                This ensures immediate authorization upon purchase.
+            </p>
+        </div>
+        <a href="https://discord.gg/dineroshop" class="discord-button" target="_blank">
+            Join Discord Server 💎
+        </a>
+        <div class="contacts">
+            <p>Contact <span class="highlight">Dinero</span> or <span class="highlight">SpEc</span> for access</p>
+        </div>
+    </div>
+
+    <script>
+        // Create money rain effect
+        function createMoneyRain() {
+            const moneyRain = document.getElementById('moneyRain');
+            const symbols = ['💸', '💰', '💵', '💎'];
+            
+            setInterval(() => {
+                const money = document.createElement('div');
+                money.className = 'money';
+                money.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                money.style.left = Math.random() * 100 + 'vw';
+                money.style.animationDuration = Math.random() * 3 + 2 + 's';
+                moneyRain.appendChild(money);
+
+                // Remove after animation
+                setTimeout(() => {
+                    money.remove();
+                }, 5000);
+            }, 300);
+        }
+
+        createMoneyRain();
+    </script>
+
+    <script>
+        // Fetch and display user's IP
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('userIP').textContent = data.ip;
+            })
+            .catch(() => {
+                document.getElementById('userIP').textContent = 'Error loading IP';
+            });
+    </script>
+</body>
+</html>
